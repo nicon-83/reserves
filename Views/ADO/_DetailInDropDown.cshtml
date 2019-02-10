@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Portal.Models.ReserveGoods>
+
+<div>
+
+	<div>
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th scope="col">
+						Код товара
+					</th>
+					<th scope="col">
+						Наименование товара
+					</th>
+					<th scope="col">
+						Код произ-ля
+					</th>
+					<th scope="col">
+						Наименование производителя
+					</th>
+					<th scope="col">
+						Цена
+					</th>
+					<th scope="col">
+						Кол-во
+					</th>
+					<th scope="col">
+						Список подмен
+					</th>
+					<th scope="col" style="width: 24%">
+						Кол-во по статусам (Amount)
+					</th>
+				</tr>
+			</thead>
+
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@item.Idpos
+					</td>
+					<td>
+						@item.Shortname
+					</td>
+					<td>
+						@item.Idpro
+					</td>
+					<td>
+						@item.Name
+					</td>
+					<td>
+						@item.Cost
+					</td>
+					<td>
+						@item.Amount
+					</td>
+					<td>
+						<ol class="states">
+							@{
+								string idposList = item.IdposList.Replace(";", "");
+								string[] array = idposList.Split(',');
+								foreach (string str in array)
+								{
+									<li>@str</li>
+								}
+							}
+						</ol>
+					</td>
+					<td>
+						<ol class="states">
+							@if (item.Amounta != "0")
+							{
+								<li>@item.Amounta  зарезервировано(AmountA)</li>
+							}
+							@if (item.AmountAnnul != "0")
+							{
+								<li>@item.AmountAnnul  аннулировано(Annul)</li>
+							}
+							@if (item.AmountOrdered != "0")
+							{
+								<li>@item.AmountOrdered  заказано(Ordered): </li>
+							}
+							@if (item.AmountPacked != "0")
+							{
+								<li>@item.AmountPacked укомплектовано(Packed)</li>
+							}
+							@if (item.AmountComplete != "0")
+							{
+								<li>@item.AmountComplete  выдано(Complete)</li>
+							}
+							@if (item.Amount1 != "0")
+							{
+								<li>@item.Amount1  новый(Amount1)</li>
+							}
+							@if (item.Amount2 != "0")
+							{
+								<li>@item.Amount2  готов к выдаче(Amount2)</li>
+							}
+							@if (item.Amount4 != "0")
+							{
+								<li>@item.Amount4  ожидает подтверждения(Amount4)</li>
+							}
+							@if (item.Amount5 != "0")
+							{
+								<li>@item.Amount5  подтвержден(Amount5)</li>
+							}
+							@if (item.Amount6 != "0")
+							{
+								<li>@item.Amount6  отменен(Amount6)</li>
+							}
+							@if (item.Amount8 != "0")
+							{
+								<li>@item.Amount8  выдан(Amount8)</li>
+							}
+							@if (item.Amount9 != "0")
+							{
+								<li>@item.Amount9  комплектуется(Amount9)</li>
+							}
+							@if (item.Amount20 != "0")
+							{
+								<li>@item.Amount20  дозаказ(Amount20)</li>
+							}
+						</ol>
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+
+	@{
+		if (ViewBag.Message != null)
+		{
+			<p class="message">@ViewBag.Message</p>
+		}
+	}
+
+</div>

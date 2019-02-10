@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Portal.Models.Reserve>
+
+@if (Model.Count() > 0)
+{
+	<table class="table table-striped table-sm" id="reserve-table">
+		<thead class="text-center">
+			<tr>
+				<th scope="col" style="width: 8%">
+					Номер
+				</th>
+				<th scope="col">
+					Дата резерва
+				</th>
+				<th scope="col">
+					Дата получения
+				</th>
+				<th scope="col">
+					Источник
+				</th>
+				<th scope="col">
+					ГЕС аптеки
+				</th>
+				<th scope="col">
+					Наименование аптеки
+				</th>
+				<th scope="col">
+					Клиент
+				</th>
+				<th scope="col">
+					Статус
+				</th>
+				<th scope="col">
+					Состояние
+				</th>
+				<th scope="col" style="width: 150px">
+					Комментарий
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				string delReason = string.Empty;
+				<tr>
+					<td>
+						<span>@item.number</span><br />
+						<span class="detail-dropdown" data="@Url.Action("_DetailInDropDownAsync", "ADO")" idReserve="@item.idReserve" type="closed"></span>
+					</td>
+					<td>
+						@item.reserveDate
+					</td>
+					<td>
+						@item.receiveDate
+					</td>
+					<td>
+						@item.source
+					</td>
+					<td>
+						@item.idApteka
+					</td>
+					<td>
+						@item.nameApteka
+					</td>
+					<td>
+						@item.fio
+					</td>
+					<td>
+						<a class="history" href="@Url.Action("_HistoryInModalAsync", "ADO")/@item.idReserve">@item.state</a>
+					</td>
+					<td>
+						@item.description
+						@if (!string.IsNullOrEmpty(item.delReason))
+						{
+							delReason = "(" + @item.delReason + ")";
+						}
+						@delReason
+					</td>
+					<td>
+						@item.comments
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@{
+	if (ViewBag.Message != null)
+	{
+		<p class="message">@ViewBag.Message</p>
+	}
+}

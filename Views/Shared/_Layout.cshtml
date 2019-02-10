@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<script src="~/js/DatePicker.js"></script>
+</head>
+<body>
+	<div class="navbar navbar-expand-sm navbar-fixed-top">
+		<div class="container">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="nav navbar-nav mr-auto">
+					<li id="Index" class="nav-item"><a class="nav-link" asp-area="" asp-controller="ADO" asp-action="Index">Поиск резервов</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container main">
+		<img id="loadImg" src="~/images/ajax-loader.gif" />
+		<form id="__AjaxAntiForgeryForm" action="#" method="post" hidden>
+			@Html.AntiForgeryToken()
+		</form>
+		@RenderBody()
+		<hr />
+		<div class="navbar navbar-expand-sm fixed-bottom">
+			<div class="container">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<span class="mx-auto align-middle copy">&copy; &#171;ООО КВЕРТИ&#187;, 2010-@DateTime.Now.Year</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/js/Portal.js"></script>
+	@RenderSection("Scripts", required: false)
+</body>
+</html>

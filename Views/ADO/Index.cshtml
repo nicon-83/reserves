@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Portal.Models.Reserve>
+@{
+	ViewBag.Title = "Список резервов";
+}
+
+@* контейнер для вывода модального окна *@
+<div id="ModalBox" class="modal fade">
+	<div id="dialogContent" class="modal-dialog"></div>
+</div>
+
+<div id="ModalBoxDetail" class="modal fade">
+	<div id="dialogContentDetail" class="modal-dialog modal-lg"></div>
+</div>
+
+@* форма для отправки данных *@
+<div class="form-inline mb-3">
+	период <span id="Date1"></span>
+	<script type="text/javascript">
+		var currentDate = new Date();
+		var Date1 = currentDate.setDate(currentDate.getDate() - 2);
+		Date1 = new Date(Date1).toLocaleDateString();
+		new Qwerty.DatePicker('Date1', 'Date1', Date1);
+	</script>
+	... <span id="Date2"></span>
+	<script type="text/javascript">
+		var currentDate = (new Date()).toLocaleDateString();
+		new Qwerty.DatePicker('Date2', 'Date2', currentDate);
+	</script>
+</div>
+<div class="form-inline mb-3">
+	<input id="search" class="form-control mr-2 col-4" type="search" placeholder="Номер резерва или код ГЕС аптеки" name="Text" />
+	<input id="search-button" class="btn" type="submit" value="Искать" />
+	<a id="link-for-search-button" asp-controller="ADO" asp-action="_IndexAjaxAsync" hidden></a>
+</div>
+
+
+<hr />
+
+@* контейнер для отоборажения содержимого полученного из Ajax запроса *@
+<div id="results" class="pb-2"></div>
+
+@{
+	if (ViewBag.Message != null)
+	{
+		<p class="message">@ViewBag.Message</p>
+	}
+}
+
